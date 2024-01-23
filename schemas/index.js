@@ -6,9 +6,9 @@ dotenv.config();
 const connect = () => {
     mongoose
         .connect(
-            process.env.mongodbURL,
+            process.env.MONGODB_URL,
             {
-                dbName: 'node_lv1',
+                dbName: process.env.MONGODB_NAME,
             },
         )
         .then(() => console.log('MongoDB 연결에 성공하였습니다.'))

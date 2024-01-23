@@ -1,7 +1,6 @@
 import express from 'express';
 import Product from '../schemas/products.schema.js';
 
-// Express.js의 라우터를 생성합니다.
 const router = express.Router();
 
 /** 제품 등록 **/
@@ -10,7 +9,7 @@ router.post('/products', async (req, res) => {
     try {
         const { title, content, author, password } = req.body;
 
-        if (!title || !content || !author || !password) {
+        if (!req.body) {
             return res.status(400).json({ errorMessage: '데이터 형식이 올바르지 않습니다.' });
         }
 
@@ -21,6 +20,7 @@ router.post('/products', async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ errorMessage: '내부 서버 오류' });
+        // TODO : eorror
     }
 });
 
@@ -96,7 +96,7 @@ router.put('/products/:id', async (req, res) => {
         const productId = req.params.id;
         const { title, content, password, status } = req.body;
 
-        if (!title || !content || !password) {
+        if (!req.body) {
             return res.status(400).json({ message: '데이터 형식이 올바르지 않습니다.' });
         }
 
