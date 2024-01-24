@@ -4,7 +4,6 @@ import Product from '../schemas/products.schema.js';
 const router = express.Router();
 
 /** 제품 등록 **/
-// localhost:3000/api/products POST
 router.post('/products', async (req, res) => {
     try {
         const { title, content, author, password } = req.body;
@@ -20,12 +19,10 @@ router.post('/products', async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ errorMessage: '내부 서버 오류' });
-        // TODO : eorror
     }
 });
 
 /** 제품 목록 조회 API **/
-// localhost:3000/api/products GET
 router.get('/products', async (req, res) => {
     try {
         const { name, author, status } = req.query;
@@ -61,7 +58,6 @@ router.get('/products', async (req, res) => {
 });
 
 /** 제품 상세 조회 API **/
-// localhost:3000/api/products/:id GET
 router.get('/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
@@ -90,7 +86,6 @@ router.get('/products/:id', async (req, res) => {
 });
 
 /** 제품 정보 수정 API **/
-// localhost:3000/api/products/:id PUT
 router.put('/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
@@ -110,7 +105,6 @@ router.put('/products/:id', async (req, res) => {
             return res.status(401).json({ message: '상품을 수정할 권한이 존재하지 않습니다.' });
         }
 
-        // Update product information
         product.title = title;
         product.content = content;
         product.status = status;
@@ -125,7 +119,6 @@ router.put('/products/:id', async (req, res) => {
 });
 
 /** 제품 삭제 API **/
-// localhost:3000/api/products/:id DELETE
 router.delete('/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
@@ -145,7 +138,6 @@ router.delete('/products/:id', async (req, res) => {
             return res.status(401).json({ message: '상품을 수정할 권한이 존재하지 않습니다.' });
         }
 
-        // Delete the product
         await Product.findByIdAndDelete(productId);
 
         return res.status(200).json({ message: '상품을 삭제하였습니다.' });
